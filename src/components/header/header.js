@@ -26,7 +26,7 @@ const HeaderLinks = styled.ul`
     }
 `;
 
-const Header = () => {
+const Header = ({getAllCharacters, getAllBooks, getAllHouses}) => {
     return (
         <HeaderBlock>
             <HeaderTitle>
