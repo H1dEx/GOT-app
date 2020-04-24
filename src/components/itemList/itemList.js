@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
-import gotService from './../../services/gotService';
 import Spinner from '../spinner';
 
 const ItemLi = styled.li`
@@ -13,35 +12,38 @@ const ItemDiv = styled.div`
 
 export default class ItemList extends Component {
 
-    gotService = new gotService();
     state = {
-        charList: null,
+        itemList: null,
     }
 
     componentDidMount() {
-        this.gotService.getAllCharacters()
-            .then( (charList) => {
+        const {getData} = this.props;
+
+        getData()
+            .then( (itemList) => {
                 this.setState({
-                    charList
+                    itemList
                 })
             });
     }
 
-    renderItems = (arr) => {
+    renderItems(arr)  {
         return arr.map( (el,i) => {
-            return  (<ItemLi 
+            const label = this.props.renderItem(el);
+            
+            return (<ItemLi     
                 key={i} 
-                className="list-group-item d-flex justify-content-between" onClick={()=>{this.props.onCharSelected(i+41)}}>
-                    {el.name}
+                className="list-group-item d-flex justify-content-between" onClick={()=>{this.props.onItemSelected(i)}}>
+                    {label}
             </ItemLi>)
             })
         }
 
 
     render() {
-        const {charList} = this.state;
-        if(!charList) return <Spinner/>
-        const items = this.renderItems(charList);
+        const {itemList} = this.state;
+        if(!itemList) return <Spinner/>
+        const items = this.renderItems(itemList);
         return (
             <ItemDiv>
             <ul className="list-group list-group-flush">
