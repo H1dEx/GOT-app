@@ -33,7 +33,7 @@ export default class ItemList extends Component {
             
             return (<ItemLi     
                 key={i} 
-                className="list-group-item d-flex justify-content-between" onClick={()=>{this.props.onItemSelected(i)}}>
+                className="list-group-item d-flex justify-content-between" onClick={()=>{this.props.onItemSelected(i+1)}}>
                     {label}
             </ItemLi>)
             })
