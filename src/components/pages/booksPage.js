@@ -34,7 +34,7 @@ export default class BooksPage extends Component {
         const bookDetails = (
             <ItemDetails itemId={this.state.selectedBook} getItem={this.gotService.getBook}>
                 <Field field='numberOfPages' label='NumberOfPages'/>
-                <Field field='authors' label='Authors'/>
+                <Field field='publisher' label='Publisher'/>
                 <Field field='released' label='Released'/>
             </ItemDetails>
         )

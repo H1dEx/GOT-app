@@ -65,7 +65,7 @@ export default class GotService {
         return {
             name: char.name,
             numberOfPages: char.numberOfPages,
-            publiser: char.publiser,
+            publisher: char.publisher,
             released: char.released
         }
     }

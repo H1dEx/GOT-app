@@ -39,7 +39,7 @@ export default class App extends Component {
                 <Container>
                     <Header />
                 </Container>
-                <>
+                <Container>
                     <Row>
                         <Col lg={{size: 5, offset: 0}}>
                             {randomCharacter}
@@ -50,7 +50,7 @@ export default class App extends Component {
                     <BooksPage/>
 
 
-                </>
+                </Container>
             </>
         );
     }
