@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import GotService from './../../services/gotService';
 import Spinner from '../spinner';
 import ErrorMessage from './../errorMessage';
+import PropTypes from 'prop-types'
+
 
 const RandomBlock = styled.div`
     background-color: #fff;
@@ -27,6 +29,15 @@ export default class RandomChar extends Component {
         error: false
     }
 
+    
+    static defaultProps = {
+        interval: 1000
+    }
+
+    static propTypes = {
+        interval: PropTypes.number
+    }
+
     onCharLoaded = (char) => {
         this.setState({
             char,
@@ -36,7 +47,7 @@ export default class RandomChar extends Component {
 
     componentDidMount = () => {
         this.updateCharacter();
-        this.timerId = setInterval(this.updateCharacter,1500)
+        this.timerId = setInterval(this.updateCharacter,this.props.interval)
     }
 
     componentWillUnmount = () => {

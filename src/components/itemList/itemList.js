@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import Spinner from '../spinner';
+import PropTypes from 'prop-types';
 
 const ItemLi = styled.li`
     cursor: pointer;
@@ -10,40 +11,30 @@ const ItemDiv = styled.div`
     border-radius: 1.5rem;
 `
 
-export default class ItemList extends Component {
+function ItemList({getData, onItemSelected, renderItem}) {
 
-    state = {
-        itemList: null,
-    }
+    const [itemList, updateList] = useState([]);
 
-    componentDidMount() {
-        const {getData} = this.props;
-
+    useEffect(()=>{ 
         getData()
-            .then( (itemList) => {
-                this.setState({
-                    itemList
-                })
-            });
-    }
+            .then( (data) => updateList(data));
+    },[])
 
-    renderItems(arr)  {
+
+    const renderItems = (arr) => {
         return arr.map( (el,i) => {
-            const label = this.props.renderItem(el);
+            const label = renderItem(el);
             
-            return (<ItemLi     
-                key={i} 
-                className="list-group-item d-flex justify-content-between" onClick={()=>{this.props.onItemSelected(i+1)}}>
+            return (<ItemLi key={i} 
+                className="list-group-item d-flex justify-content-between" onClick={()=>{onItemSelected(i+1)}}>
                     {label}
             </ItemLi>)
             })
         }
 
-
-    render() {
-        const {itemList} = this.state;
         if(!itemList) return <Spinner/>
-        const items = this.renderItems(itemList);
+        const items = renderItems(itemList);
+        
         return (
             <ItemDiv>
             <ul className="list-group list-group-flush">
@@ -52,5 +43,14 @@ export default class ItemList extends Component {
             </ItemDiv>
 
         );
-    }
 }
+
+ItemList.defaultProps = {
+    onItemSelected: () => {}
+}
+
+ItemList.propTypes = {
+    onItemSelected: PropTypes.func,
+}
+
+export default ItemList;
